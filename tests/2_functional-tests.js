@@ -6,7 +6,7 @@ const server = require('../server');
 chai.use(chaiHttp);
 
 suite('Functional Tests', function() {
-  
+
   test('Convert a valid input such as 10L: GET request to /api/convert', function(done) {
     chai.request(server)
       .get('/api/convert')
@@ -14,7 +14,7 @@ suite('Functional Tests', function() {
       .end(function(err, res) {
         assert.equal(res.status, 200);
         assert.equal(res.body.initNum, 10);
-        assert.equal(res.body.initUnit, 'l'); // Cambié a 'l' para que coincida con tu ConvertHandler
+        assert.equal(res.body.initUnit, 'L');
         assert.approximately(res.body.returnNum, 2.64172, 0.1);
         assert.equal(res.body.returnUnit, 'gal');
         done();
@@ -61,7 +61,7 @@ suite('Functional Tests', function() {
       .end(function(err, res) {
         assert.equal(res.status, 200);
         assert.equal(res.body.initNum, 1);
-        assert.equal(res.body.initUnit, 'kg'); // Cambié a 'kg' para que coincida con tu ConvertHandler
+        assert.equal(res.body.initUnit, 'kg');
         assert.approximately(res.body.returnNum, 2.20462, 0.1);
         assert.equal(res.body.returnUnit, 'lbs');
         done();
