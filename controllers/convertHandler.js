@@ -2,14 +2,16 @@ function ConvertHandler() {
   this.getNum = function(input) {
     const result = input.match(/[.\d\/]+/g) || ["1"];
     const num = result[0];
-
+  
     if (num.includes('/')) {
       const values = num.split('/');
-      if (values.length != 2) return NaN;
+      if (values.length !== 2 || isNaN(values[0]) || isNaN(values[1]) || parseFloat(values[1]) === 0) {
+        return NaN; // Retornar NaN si hay más de 2 partes, o si no son números, o si el denominador es cero
+      }
       return parseFloat(values[0]) / parseFloat(values[1]);
     }
-
-    return parseFloat(num);
+  
+    return isNaN(num) ? NaN : parseFloat(num); // Asegúrate de manejar NaN aquí
   };
   
   this.getUnit = function(input) {
@@ -19,6 +21,7 @@ function ConvertHandler() {
     const validUnits = ['gal', 'l', 'mi', 'km', 'lbs', 'kg'];
     return validUnits.includes(unit) ? unit : null;
   };
+  
   
   this.getReturnUnit = function(initUnit) {
     const unitMap = {
@@ -31,6 +34,7 @@ function ConvertHandler() {
     };
     return unitMap[initUnit.toLowerCase()];
   };
+  
 
   this.spellOutUnit = function(unit) {
     const spellOutMap = {
